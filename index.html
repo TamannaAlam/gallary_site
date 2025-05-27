@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clean Image Gallery (No‑Crop)</title>
   <style>
-    /* --- Reset & page scaffold ------------------------------------------ */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -13,41 +12,36 @@
     }
     body {
       font-family: system-ui, sans-serif;
-      background: #efefef;            /* soft grey gutter */
+      background: #efefef;
       display: flex;
       justify-content: center;
       padding: 2rem 1rem;
     }
-
-    /* --- Gallery wrapper ------------------------------------------------ */
     .gallery {
       position: relative;
       max-width: 1100px;
       width: 100%;
       background: #fff;
-      padding: 2rem 0 3.5rem;        /* extra bottom space for dots */
+      padding: 2rem 0 3.5rem;
       border-radius: 0.75rem;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
       text-align: center;
     }
-
-    /* --- Slides --------------------------------------------------------- */
     .slides {
       position: relative;
       width: 90%;
-      height: 60vh;                  /* flexible height – visible on all screens */
-      max-height: 800px;             /* don’t let it grow too tall */
+      height: 60vh;
+      max-height: 800px;
       margin: 0 auto;
-      overflow: hidden;              /* hide anything outside the frame */
-      background: #000;              /* letter‑box bars for narrow images */
+      overflow: hidden;
+      background: #000;
     }
-
     .slides img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;           /* 🔑 show whole image – no cropping */
+      object-fit: contain;
       object-position: center;
       opacity: 0;
       transition: opacity 0.6s ease;
@@ -55,15 +49,11 @@
     .slides img.active {
       opacity: 1;
     }
-
-    /* --- Caption -------------------------------------------------------- */
     .caption {
       margin-top: 1.25rem;
       font-size: 1rem;
       color: #333;
     }
-
-    /* --- Dots ----------------------------------------------------------- */
     .dots {
       position: absolute;
       bottom: 1.25rem;
@@ -83,8 +73,6 @@
     .dot.active {
       background: #555;
     }
-
-    /* --- Prev/Next arrows ---------------------------------------------- */
     .nav-btn {
       position: absolute;
       top: 50%;
@@ -108,7 +96,6 @@
     .prev { left: 1rem; }
     .next { right: 1rem; }
 
-    /* --- Responsive tweaks --------------------------------------------- */
     @media (max-width: 640px) {
       .gallery { padding-bottom: 4rem; }
       .slides { height: 45vh; }
@@ -119,37 +106,29 @@
   <div class="gallery" id="gallery">
     <!-- Slides -->
     <div class="slides" id="slides">
-      <!-- Example images – replace src with your own files -->
-      <img src="1.png" data-caption="Accepted at Lisbon Machine Learning School(LxMLS 2025)">
-      <img src="oxml.png" data-caption="Accepted at Oxford Machine Learning Summer School(OxML 2025)">
-
-
-      
+      <img src="1.png" data-caption="Accepted at Lisbon Machine Learning School (LxMLS 2025)">
+      <img src="oxml.png" data-caption="Accepted at Oxford Machine Learning Summer School (OxML 2025)">
     </div>
 
-    <!-- Caption -->
-    <p class="caption" id="caption">Convocation day with my Father, my inspiration</p>
+    <!-- Dynamic Caption -->
+    <p class="caption" id="caption"></p>
 
-    <!-- Navigation dots will be built by JS here -->
+    <!-- Dots -->
     <div class="dots" id="dots"></div>
 
-    <!-- Prev / Next buttons -->
+    <!-- Navigation Arrows -->
     <button class="nav-btn prev" onclick="plusSlides(-1)">&#10094;</button>
     <button class="nav-btn next" onclick="plusSlides(1)">&#10095;</button>
   </div>
 
   <script>
-    // ————————————————————————————————————————————————
-    // Basic JS slider logic — fade‑only, no zoom, full image visible.
-    // ————————————————————————————————————————————————
     const slides = Array.from(document.querySelectorAll('#slides img'));
     const captionEl = document.getElementById('caption');
     const dotsContainer = document.getElementById('dots');
     let current = 0;
-    const AUTO_MS = 5000; // 5‑second autoplay. Set to null to disable.
+    const AUTO_MS = 5000;
     let autoTimer;
 
-    // Build dot elements
     slides.forEach((_, idx) => {
       const dot = document.createElement('span');
       dot.className = 'dot' + (idx === 0 ? ' active' : '');
@@ -173,13 +152,14 @@
     }
 
     function resetAuto() {
-      if (!AUTO_MS) return; // autoplay disabled
+      if (!AUTO_MS) return;
       clearInterval(autoTimer);
       autoTimer = setInterval(() => showSlide(current + 1), AUTO_MS);
     }
 
-    // Kick off autoplay if enabled
+    // Start autoplay and immediately show first slide
     resetAuto();
+    showSlide(0);
   </script>
 </body>
 </html>
