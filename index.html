@@ -122,6 +122,7 @@
   </div>
 
   <script>
+  window.onload = function () {
     const slides = Array.from(document.querySelectorAll('#slides img'));
     const captionEl = document.getElementById('caption');
     const dotsContainer = document.getElementById('dots');
@@ -157,9 +158,10 @@
       autoTimer = setInterval(() => showSlide(current + 1), AUTO_MS);
     }
 
-    // Start autoplay and immediately show first slide
     resetAuto();
     showSlide(0);
-  </script>
+  };
+</script>
+
 </body>
 </html>
